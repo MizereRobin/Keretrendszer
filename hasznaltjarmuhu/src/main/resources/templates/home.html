@@ -9,5 +9,10 @@
 <a href="./login">Bejelentkezés</a>
 <a href="./hirdetesek">Aktív hirdetések</a>
 <a href="./hirdet">Hirdetés feladása</a>
+
+
+<form th:action="@{/authenticatedUser}" action="@{/logout}">
+    <p>Kijelentkezés<input type="submit" value="logout"></p>
+
 </body>
 </html>

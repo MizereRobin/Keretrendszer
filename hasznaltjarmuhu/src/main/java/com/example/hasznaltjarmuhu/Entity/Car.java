@@ -24,10 +24,10 @@ public class Car {
     //@Min(value = 0, message = "Price must be greater than zero!")
     private int price;
 
-    // Alapértelmezett konstruktor
+
     public Car() {}
 
-    // Paraméteres konstruktor
+
     public Car(String manufacturer, String model, int yearOfMade, int price) {
         this.manufacturer = manufacturer;
         this.model = model;
