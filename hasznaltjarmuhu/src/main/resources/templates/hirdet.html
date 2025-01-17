@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hirdetésfeladás</title>
+</head>
+<body>
+<form th:action="@{/authenticatedUser}" method=POST">
+    <p>Autó típusa: <input type=" text"name="manufacturer"></p>
+    <p>Autó modellje: <input type="text" name="model"></p>
+    <input type="submit" value="Hirdetés!">
+</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+<form th:action="@{/authenticateduser}" method="POST">
+    <p>username: <input type="text" name="username"></p>
+    <p>password: <input type="password" name="password"></p>
+    <input type="submit" value="login">
+    <a href="./home.html">vissza</a>
+</form>
+</body>
+</html>
