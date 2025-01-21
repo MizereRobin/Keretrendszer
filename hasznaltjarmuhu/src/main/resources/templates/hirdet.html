@@ -5,7 +5,7 @@
     <title>Hirdetésfeladás</title>
 </head>
 <body>
-<form th:action="@{/authenticatedUser}" method=POST">
+<form th:action="@{/user}" method="post" sec:authorize="hasRole('USER')">
     <p>Autó típusa: <input type=" text"name="manufacturer"></p>
     <p>Autó modellje: <input type="text" name="model"></p>
     <input type="submit" value="Hirdetés!">

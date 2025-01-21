@@ -7,12 +7,13 @@
 <body>
 <h1>Használtjármű.hu</h1>
 <a href="./login">Bejelentkezés</a>
+<a href="./register">Regisztráció</a>
 <a href="./hirdetesek">Aktív hirdetések</a>
 <a href="./hirdet">Hirdetés feladása</a>
 
 
-<form th:action="@{/authenticatedUser}" action="@{/logout}">
+<form th:action="@{/user}" method="post" sec:authorize="hasRole('USER')">
     <p>Kijelentkezés<input type="submit" value="logout"></p>
-
+</form>
 </body>
 </html>

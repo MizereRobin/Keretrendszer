@@ -17,8 +17,29 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column
+    private boolean auth;
 
+    private String role; // user / manager / admin
 
+    public String GetRole(){
+        return role;
+    }
+    public void SetRole(String value){
+        if(value == "user" || value == "manager" || value == "admin"){
+        this.role = value;
+        }
+        else{
+            this.role="user";
+        }
+    }
+
+public boolean isAuth(){
+    return auth;
+}
+public void setAuth(boolean value){
+    this.auth = value;
+}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

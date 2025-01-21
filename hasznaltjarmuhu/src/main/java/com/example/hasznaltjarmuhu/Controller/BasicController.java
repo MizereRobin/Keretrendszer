@@ -5,13 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.hasznaltjarmuhu.Entity.User;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
+
 
 import static com.example.hasznaltjarmuhu.Entity.User.AddUser;
-import static com.example.hasznaltjarmuhu.db.database.LogOut;
-import static com.example.hasznaltjarmuhu.db.database.Login;
+import com.example.hasznaltjarmuhu.db.Database;
 
 @Controller
+//@SessionAttributes("name")
 public class BasicController {
 
     private User user;
@@ -31,6 +32,10 @@ public class BasicController {
     public String showLoginPage(){
         return "login";
     }
+    @GetMapping("/register")
+    public String showRegisterPage(){
+        return "register";
+    }
 
     @GetMapping("/hirdetesek")
     public String showAdsPage(){
@@ -43,22 +48,22 @@ public class BasicController {
     }
 
     @GetMapping("/logout")
-    public String showLogout(){
-        LogOut(user.getUsername());
+    public String showLogout(HttpSession session){
+        session.invalidate();
         return "home";
     }
 
     @PostMapping("/submit")
-    public String handleFormSubmit(@RequestParam("name") String name, @RequestParam("password") String passwd, HttpSession session) {
+    public String handleFormSubmit(HttpSession session, @RequestParam("name") String name, @RequestParam("password") String passwd) {
         user = AddUser(name, passwd);
-        Login(name, passwd);
-
-        // A 'name' változó hozzáadása a session-höz
+        if(login(name, passwd)){System.out.println("Sikeres bejelentkezés");}else{System.out.println("Sikertelen bejelentkezés");}
         session.setAttribute("name", name);
+        session.setAttribute("role", "user");
 
-        // Ezután átirányíthatod a felhasználót a főoldalra (például)
-        return "redirect:/home";  // vagy a megfelelő oldal, ahová szeretnéd átirányítani
+
+        return "redirect:/home";
     }
+
 
 
 }
