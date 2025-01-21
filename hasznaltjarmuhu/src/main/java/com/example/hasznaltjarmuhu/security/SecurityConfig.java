@@ -12,12 +12,18 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home").permitAll()  // Nyilvános endpointok
-                        .requestMatchers("/login", "/css/**", "/js/**").permitAll()  // Login és statikus fájlok
-                        .anyRequest().authenticated()  // Minden más endpoint autentikációt igényel
+                        .requestMatchers("/",
+                                "/login",
+                                "/register",
+                                "/submit",
+                                "/hirdetesek",
+                                //"/hirdet",
+                                "/users",
+                                "/home").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")  // Egyedi login oldal
+                        .loginPage("/login")
                         .permitAll()
                 )
                 .logout(logout -> logout

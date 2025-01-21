@@ -20,7 +20,7 @@ public class User {
     @Column
     private boolean auth;
 
-    private String role; // user / manager / admin
+    private String role;
 
     public String GetRole(){
         return role;

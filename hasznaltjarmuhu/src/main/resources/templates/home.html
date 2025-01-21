@@ -1,19 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Használtjármű.hu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-burgundy': {
+                            DEFAULT: '#800020',
+                            light: '#9a0026',
+                            dark: '#66001a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-<h1>Használtjármű.hu</h1>
-<a href="./login">Bejelentkezés</a>
-<a href="./register">Regisztráció</a>
-<a href="./hirdetesek">Aktív hirdetések</a>
-<a href="./hirdet">Hirdetés feladása</a>
+<body class="bg-gray-50">
+<div class="min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-semibold text-gray-900">Használtjármű.hu</a>
+        </div>
+    </header>
 
 
-<form th:action="@{/user}" method="post" sec:authorize="hasRole('USER')">
-    <p>Kijelentkezés<input type="submit" value="logout"></p>
-</form>
+    <nav class="bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex space-x-8">
+                <a href="/login" class="text-custom-burgundy hover:text-custom-burgundy-light font-medium">Bejelentkezés</a>
+                <a href="/register" class="text-custom-burgundy hover:text-custom-burgundy-light font-medium">Regisztráció</a>
+                <a href="/hirdetesek" class="text-custom-burgundy hover:text-custom-burgundy-light font-medium">Aktív hirdetések</a>
+                <a href="/hirdet" class="text-custom-burgundy hover:text-custom-burgundy-light font-medium">Hirdetés feladása</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+
+    </main>
+</div>
 </body>
 </html>

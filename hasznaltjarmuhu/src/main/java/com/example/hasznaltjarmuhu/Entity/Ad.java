@@ -6,8 +6,16 @@ import jakarta.persistence.*;
 @Table(name = "ads")
 public class Ad {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int car_id;
-    private int seller_id;
+
+    @Column(name = "carid")
+    private int carId;
+
+    @Column(name = "seller_id")
+    private int sellerId;
+
+    private int year;
+    private double price;
     private int postTime;
 }

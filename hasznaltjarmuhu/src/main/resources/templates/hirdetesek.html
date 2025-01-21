@@ -1,16 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hirdetések - Használtjármű.hu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-burgundy': {
+                            DEFAULT: '#800020',
+                            light: '#9a0026',
+                            dark: '#66001a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-<h1>Hirdetések</h1>
+<body class="bg-gray-100">
+<div class="min-h-screen flex flex-col">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div>
+                    <a href="/" class="text-xl font-semibold text-gray-800">Használtjármű.hu</a>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="/hirdet" class="text-gray-600 hover:text-custom-burgundy">Hirdetés feladása</a>
+                    <a href="/logout" class="text-gray-600 hover:text-custom-burgundy">Kijelentkezés</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
 
-<form action="@{/logout}">
-<p>Kijelentkezés<input type="submit" value="logout"></p>
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Hirdetések</h1>
+            <select class="rounded-lg border border-gray-300 px-4 py-2 bg-white shadow-sm focus:border-custom-burgundy focus:ring-custom-burgundy">
+                <option value="">Gyártó szerint</option>
+                <option value="ascending">A-Z</option>
+                <option value="descending">Z-A</option>
+            </select>
+        </div>
 
-</form>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="ad : ${ads}" class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900" th:text="${ad.manufacturer + ' ' + ad.model}">Autó neve</h3>
+                            <p class="text-gray-600" th:text="${'Évjárat: ' + ad.year}">Évjárat</p>
+                        </div>
+                        <span class="text-lg font-bold text-custom-burgundy" th:text="${#numbers.formatCurrency(ad.price)}">Ár</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button class="px-4 py-2 bg-custom-burgundy text-white rounded-lg hover:bg-custom-burgundy-light transition-colors">
+                            Részletek
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(ads)}" class="text-center py-10">
+            <p class="text-gray-600">Jelenleg nincsenek hirdetések.</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
