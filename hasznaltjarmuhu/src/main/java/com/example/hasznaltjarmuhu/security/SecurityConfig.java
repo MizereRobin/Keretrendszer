@@ -10,15 +10,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
+
+        //login nélkül
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/",
-                                "/login",
+                                //"/login",
                                 "/register",
                                 "/submit",
                                 "/hirdetesek",
-                                //"/hirdet",
-                                "/users",
+                                "/hirdet",
+                                //"/users",
                                 "/home").permitAll()
                         .anyRequest().authenticated()
                 )

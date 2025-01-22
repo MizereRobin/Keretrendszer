@@ -15,7 +15,7 @@ public class Database {
     private static String password = "";
 
     public static boolean login(String name, String password, HttpSession session) {
-        String query = "SELECT * FROM users WHERE name = ? AND password = ?";
+        String query = "SELECT name,pwd,role FROM users WHERE name = ? AND password = PASSWORD(?)";
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, name);
@@ -73,6 +73,21 @@ public class Database {
         return cars;
     }
 
+    public static int getUserIdByName(String username) {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            String query = "SELECT id FROM users WHERE name = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public static boolean postAd(String manufacturer, String model, int year, double price, int userId) {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String carQuery = "INSERT INTO car (manufacturer, model) VALUES (?, ?)";
@@ -99,20 +114,7 @@ public class Database {
         return false;
     }
 
-    public static int getUserIdByName(String username) {
-        try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            String query = "SELECT id FROM users WHERE name = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, username);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
+
 
     public static List<Map<String, Object>> getAllUsers() {
         List<Map<String, Object>> users = new ArrayList<>();
